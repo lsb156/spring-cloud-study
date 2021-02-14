@@ -1,10 +1,10 @@
-package com.ssabae.cloud
+package com.ssabae.cloud.configserver
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class SsabaeCloudApplicationTests {
+class ConfigServerApplicationTests {
 
 	@Test
 	fun contextLoads() {
