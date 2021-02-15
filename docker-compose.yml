@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  config-server:
+    image: ssabae-cloud/spring-config-server
+    container_name: config-server
+    mem_limit: 512M
+    ports:
+      - 8888:8888

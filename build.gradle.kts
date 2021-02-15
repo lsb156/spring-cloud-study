@@ -3,48 +3,68 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "2.4.2"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
+
 	kotlin("jvm") version "1.4.21"
 	kotlin("plugin.spring") version "1.4.21"
-	kotlin("plugin.jpa") version "1.4.21"
 }
 
-group = "com.ssabae"
-version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
 
-repositories {
-	mavenCentral()
-}
 
-extra["springCloudVersion"] = "2020.0.1"
+subprojects {
 
-dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-validation")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
-	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
-	implementation("org.springframework.cloud:spring-cloud-starter-vault-config")
-	runtimeOnly("com.h2database:h2")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
+	group = "com.ssabae"
+	version = "0.0.1-SNAPSHOT"
 
-dependencyManagement {
-	imports {
-		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+
+	tasks.withType<JavaCompile> {
+		sourceCompatibility = "11"
 	}
-}
 
-tasks.withType<KotlinCompile> {
-	kotlinOptions {
-		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "11"
+	extra["springCloudVersion"] = "2020.0.1"
+
+	tasks.withType<KotlinCompile> {
+		kotlinOptions {
+			freeCompilerArgs = listOf("-Xjsr305=strict")
+			jvmTarget = "11"
+		}
 	}
+
+	tasks.withType<Test> {
+		useJUnitPlatform()
+	}
+
+	repositories {
+		mavenCentral()
+	}
+
+	buildscript {
+		repositories {
+			mavenCentral()
+		}
+	}
+
+
+	dependencyManagement {
+		imports {
+			mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+		}
+	}
+
+	apply {
+		plugin("kotlin")
+		plugin("kotlin-spring")
+
+		plugin("org.springframework.boot")
+		plugin("io.spring.dependency-management")
+	}
+
+//	dependencies {
+//		implementation("org.jetbrains.kotlin:kotlin-reflect")
+//		implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+//		testImplementation("org.springframework.boot:spring-boot-starter-test")
+//	}
 }
 
-tasks.withType<Test> {
-	useJUnitPlatform()
-}
+
+
+
