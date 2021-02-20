@@ -8,8 +8,6 @@ plugins {
 	kotlin("plugin.spring") version "1.4.21"
 }
 
-
-
 subprojects {
 
 	group = "com.ssabae"
@@ -43,13 +41,6 @@ subprojects {
 		}
 	}
 
-
-	dependencyManagement {
-		imports {
-			mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
-		}
-	}
-
 	apply {
 		plugin("kotlin")
 		plugin("kotlin-spring")
@@ -58,11 +49,6 @@ subprojects {
 		plugin("io.spring.dependency-management")
 	}
 
-//	dependencies {
-//		implementation("org.jetbrains.kotlin:kotlin-reflect")
-//		implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-//		testImplementation("org.springframework.boot:spring-boot-starter-test")
-//	}
 }
 
 
